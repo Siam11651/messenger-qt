@@ -1,0 +1,9 @@
+#ifndef APP_INFO_H
+#define APP_INFO_H
+
+namespace messenger {
+  constexpr char app_id[] = "@APP_ID@";
+  constexpr char app_version[] = "@APP_VERSION@";
+}
+
+#endif
