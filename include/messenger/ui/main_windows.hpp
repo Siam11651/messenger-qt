@@ -2,15 +2,13 @@
 #define MAIN_WINDOW_H
 
 #include <QMainWindow>
-#include <QWebEngineView>
+#include <messenger/ui/webengine_view.hpp>
 
 namespace messenger {
 class main_window : public QMainWindow {
-private:
-  QWebEngineProfile *m_webview_profile;
-  QWebEngineView *m_webview;
-
 public:
+  static messenger::webengine_view *webengine_view;
+
   main_window();
   ~main_window();
 };

@@ -12,6 +12,8 @@ configure_file(
 add_executable(${PROJECT_NAME}
   "src/main.cpp"
   "src/ui/main_window.cpp"
+  "src/ui/webengine_page.cpp"
+  "src/ui/webengine_view.cpp"
 )
 target_include_directories(${PROJECT_NAME} PRIVATE "include")
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Widgets Qt6::WebEngineWidgets)
