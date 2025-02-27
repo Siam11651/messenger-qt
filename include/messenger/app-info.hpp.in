@@ -1,9 +1,13 @@
 #ifndef APP_INFO_H
 #define APP_INFO_H
 
+#include <string>
+
 namespace messenger {
   constexpr char app_id[] = "@APP_ID@";
   constexpr char app_version[] = "@APP_VERSION@";
+  const std::string domain = "messenger.com";
+  const std::string https_domain = "https://" + domain;
 }
 
 #endif

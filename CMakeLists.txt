@@ -11,6 +11,9 @@ configure_file(
 )
 add_executable(${PROJECT_NAME}
   "src/main.cpp"
+  "src/ui/menubar.cpp"
+  "src/ui/menu/filemenu.cpp"
+  "src/ui/menu/helpmenu.cpp"
   "src/ui/main_window.cpp"
   "src/ui/webengine_page.cpp"
   "src/ui/webengine_view.cpp"
