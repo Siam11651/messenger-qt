@@ -15,6 +15,7 @@ protected:
                                QWebEnginePage::NavigationType type,
                                bool isMainFrame) override;
   QWebEnginePage *createWindow(QWebEnginePage::WebWindowType type) override;
+  QStringList chooseFiles(QWebEnginePage::FileSelectionMode mode, const QStringList &oldFiles, const QStringList &acceptedMimeTypes) override;
 
 public:
   webengine_page(const QString &_profile_name);

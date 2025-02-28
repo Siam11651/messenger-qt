@@ -7,7 +7,7 @@ void messenger::popup_page::handle_urlchange(const QUrl &url) {
 
     m_loaded = true;
 
-    emit windowCloseRequested();
+    deleteLater();
   }
 }
 
