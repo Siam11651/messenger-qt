@@ -23,5 +23,6 @@ messenger::helpmenu::helpmenu() : QMenu() {
 }
 
 messenger::helpmenu::~helpmenu() {
-
+  delete m_homepage_action;
+  delete m_about_action;
 }

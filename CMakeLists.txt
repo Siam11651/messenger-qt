@@ -15,9 +15,14 @@ add_executable(${PROJECT_NAME}
   "src/ui/menu/filemenu.cpp"
   "src/ui/menu/helpmenu.cpp"
   "src/ui/main_window.cpp"
+  "src/ui/popup_page.cpp"
   "src/ui/webengine_page.cpp"
   "src/ui/webengine_view.cpp"
 )
 target_include_directories(${PROJECT_NAME} PRIVATE "include")
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Widgets Qt6::WebEngineWidgets)
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/assets")
+file(COPY "${CMAKE_SOURCE_DIR}/assets"
+     DESTINATION "${CMAKE_BINARY_DIR}"
+)
 qt_standard_project_setup()

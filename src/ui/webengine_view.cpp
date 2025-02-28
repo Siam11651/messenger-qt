@@ -6,5 +6,7 @@ messenger::webengine_view::webengine_view(const QString &_profile_name) : QWebEn
 }
 
 messenger::webengine_view::~webengine_view () {
+  emit page()->windowCloseRequested();
+
   delete page();
 }

@@ -1,11 +1,22 @@
+#include <QWebEngineView>
 #include <messenger/ui/menu/filemenu.hpp>
+#include <messenger/ui/main_window.hpp>
+#include <messenger/app-info.hpp>
 
 void messenger::filemenu::refresh_trigger() {
-  
+  QWebEngineView *const webengine_view = messenger::main_window::webengine_view;
+
+  if(webengine_view != nullptr) {
+    webengine_view->reload();
+  }
 }
 
 void messenger::filemenu::restart_trigger() {
-  
+  QWebEngineView *const webengine_view = messenger::main_window::webengine_view;
+
+  if(webengine_view != nullptr) {
+    webengine_view->load(QUrl(messenger::https_domain.c_str()));
+  }
 }
 
 void messenger::filemenu::quit_trigger() {
