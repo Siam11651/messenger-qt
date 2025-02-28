@@ -1,24 +1,11 @@
 #include <QDesktopServices>
+#include <QFileDialog>
 #include <QStandardPaths>
 #include <QWebEngineHistory>
 #include <QWebEngineHistoryItem>
-#include <QFileDialog>
 #include <messenger/app-info.hpp>
 #include <messenger/ui/popup_page.hpp>
 #include <messenger/ui/webengine_page.hpp>
-
-QWebEngineProfile *
-messenger::webengine_page::create_profile(const QString &_profile_name) const {
-  QWebEngineProfile *new_profile = new QWebEngineProfile(_profile_name);
-
-  new_profile->setPersistentCookiesPolicy(
-      QWebEngineProfile::PersistentCookiesPolicy::AllowPersistentCookies);
-  new_profile->setPersistentStoragePath(
-      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-      "/webview-data");
-
-  return new_profile;
-}
 
 bool messenger::webengine_page::openurl_helper(const QUrl &url) const {
   QDesktopServices::openUrl(url);
@@ -56,30 +43,30 @@ messenger::webengine_page::chooseFiles(QWebEnginePage::FileSelectionMode mode,
 
   file_dialog.setMimeTypeFilters(acceptedMimeTypes);
 
-  switch(mode) {
-    case QWebEnginePage::FileSelectionMode::FileSelectOpen:
-      file_dialog.setFileMode(QFileDialog::FileMode::ExistingFile);
+  switch (mode) {
+  case QWebEnginePage::FileSelectionMode::FileSelectOpen:
+    file_dialog.setFileMode(QFileDialog::FileMode::ExistingFile);
 
-      break;
-    case QWebEnginePage::FileSelectionMode::FileSelectOpenMultiple:
-      file_dialog.setFileMode(QFileDialog::FileMode::ExistingFiles);
+    break;
+  case QWebEnginePage::FileSelectionMode::FileSelectOpenMultiple:
+    file_dialog.setFileMode(QFileDialog::FileMode::ExistingFiles);
 
-      break;
-    case QWebEnginePage::FileSelectionMode::FileSelectUploadFolder:
-      file_dialog.setFileMode(QFileDialog::FileMode::Directory);
+    break;
+  case QWebEnginePage::FileSelectionMode::FileSelectUploadFolder:
+    file_dialog.setFileMode(QFileDialog::FileMode::Directory);
 
-      break;
-    default:
-      file_dialog.setFileMode(QFileDialog::FileMode::AnyFile);
+    break;
+  default:
+    file_dialog.setFileMode(QFileDialog::FileMode::AnyFile);
   }
 
   const int32_t status = file_dialog.exec();
 
-  if(status == QDialog::DialogCode::Accepted) {
+  if (status == QDialog::DialogCode::Accepted) {
     QStringList to_return = oldFiles;
     const QStringList new_files = file_dialog.selectedFiles();
 
-    for(const QString &filename : new_files) {
+    for (const QString &filename : new_files) {
       to_return.push_back(filename);
     }
 
@@ -89,7 +76,8 @@ messenger::webengine_page::chooseFiles(QWebEnginePage::FileSelectionMode mode,
   }
 }
 
-messenger::webengine_page::webengine_page(const QString &_profile_name)
-    : QWebEnginePage(create_profile(_profile_name)) {}
+messenger::webengine_page::webengine_page(
+    messenger::webengine_profile *_profile)
+    : QWebEnginePage(_profile) {}
 
-messenger::webengine_page::~webengine_page() { delete profile(); }
+messenger::webengine_page::~webengine_page() { profile()->deleteLater(); }

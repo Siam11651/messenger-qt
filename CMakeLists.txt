@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
   "src/ui/main_window.cpp"
   "src/ui/popup_page.cpp"
   "src/ui/webengine_page.cpp"
+  "src/ui/webengine_profile.cpp"
   "src/ui/webengine_view.cpp"
 )
 target_include_directories(${PROJECT_NAME} PRIVATE "include")

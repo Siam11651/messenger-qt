@@ -2,12 +2,11 @@
 #define WEBENGINE_PAGE_H
 
 #include <QWebEnginePage>
-#include <QWebEngineProfile>
+#include <messenger/ui/webengine_profile.hpp>
 
 namespace messenger {
 class webengine_page : public QWebEnginePage {
 private:
-  QWebEngineProfile *create_profile(const QString &_profile_name) const;
   bool openurl_helper(const QUrl &url) const;
 
 protected:
@@ -18,7 +17,7 @@ protected:
   QStringList chooseFiles(QWebEnginePage::FileSelectionMode mode, const QStringList &oldFiles, const QStringList &acceptedMimeTypes) override;
 
 public:
-  webengine_page(const QString &_profile_name);
+  webengine_page(messenger::webengine_profile *_profile);
   ~webengine_page();
 };
 } // namespace messenger
