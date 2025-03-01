@@ -5,6 +5,9 @@
 
 namespace messenger {
 class webengine_profile : public QWebEngineProfile {
+private slots:
+  void handle_download_request(QWebEngineDownloadRequest *download);
+
 public:
   webengine_profile(const QString &_name);
   ~webengine_profile();

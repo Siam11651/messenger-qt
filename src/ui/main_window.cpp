@@ -21,5 +21,5 @@ messenger::main_window::main_window() : QMainWindow() {
 }
 
 messenger::main_window::~main_window() {
-  delete menuBar();
+  menuBar()->deleteLater();
 }

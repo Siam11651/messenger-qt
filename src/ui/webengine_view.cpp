@@ -7,4 +7,7 @@ messenger::webengine_view::webengine_view(const QString &_profile_name)
   setPage(new messenger::webengine_page(m_webengine_profile));
 }
 
-messenger::webengine_view::~webengine_view() { page()->deleteLater(); }
+messenger::webengine_view::~webengine_view() {
+  page()->deleteLater();
+  m_webengine_profile->deleteLater();
+}
