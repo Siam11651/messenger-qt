@@ -14,6 +14,8 @@ add_executable(${PROJECT_NAME}
   "src/ui/menubar.cpp"
   "src/ui/menu/filemenu.cpp"
   "src/ui/menu/helpmenu.cpp"
+  "src/ui/widget/download_item.cpp"
+  "src/ui/window/downloads_window.cpp"
   "src/ui/main_window.cpp"
   "src/ui/popup_page.cpp"
   "src/ui/webengine_page.cpp"

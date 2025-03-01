@@ -12,6 +12,7 @@ private:
 
 public:
   webengine_view(const QString &_profile_name);
+  messenger::webengine_profile *profile() const;
   ~webengine_view();
 };
 } // namespace messenger

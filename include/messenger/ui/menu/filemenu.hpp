@@ -9,12 +9,14 @@ class filemenu : public QMenu {
 private:
   QAction *m_refresh_action;
   QAction *m_restart_action;
+  QAction *m_downloads_action;
   QAction *m_quit_action;
 
 private slots:
-  void refresh_trigger();
-  void restart_trigger();
-  void quit_trigger();
+  void handle_refresh_trigger();
+  void handle_restart_trigger();
+  void handle_downloads_trigger();
+  void handle_quit_trigger();
 
 public:
   filemenu();

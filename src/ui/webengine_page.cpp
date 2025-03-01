@@ -32,7 +32,11 @@ bool messenger::webengine_page::acceptNavigationRequest(
 
 QWebEnginePage *
 messenger::webengine_page::createWindow(QWebEnginePage::WebWindowType type) {
-  return new messenger::popup_page(profile());
+  if(type == QWebEnginePage::WebWindowType::WebBrowserTab) {
+    return new messenger::popup_page(profile());
+  } else {
+    return nullptr;
+  }
 }
 
 QStringList
