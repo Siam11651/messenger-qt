@@ -1,6 +1,11 @@
 #include <messenger/ui/widget/download_item.hpp>
 
 messenger::download_item::download_item() : QWidget() {
+  setObjectName("card");
+  setStyleSheet(R"(#card {
+    border: 1px solid #7F7F7F;
+    border-radius: 8px;
+  }))");
   setContentsMargins(8, 4, 8, 4);
 
   m_root_layout = new QVBoxLayout();

@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QGraphicsDropShadowEffect>
 
 namespace messenger {
 class download_item : public QWidget {
