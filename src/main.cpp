@@ -5,7 +5,7 @@
 
 int32_t main(int32_t argc, char **argv) {
   QApplication app(argc, argv);
-  messenger::main_window::webengine_view = new messenger::webengine_view("siam11651");
+  messenger::main_window::webengine_view = new messenger::webengine_view("default");
   messenger::main_window main_window;
 
   main_window.show();
