@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include <QStandardPaths>
+#include <QDesktopServices>
 #include <QWebEngineDownloadRequest>
 #include <messenger/ui/webengine_profile.hpp>
 
@@ -15,11 +16,6 @@ void messenger::webengine_profile::handle_download_request(
 
   if(file_status == QDialog::DialogCode::Accepted) {
     download->setDownloadFileName(file_dialog.selectedFiles().first());
-    download->connect(download, &QWebEngineDownloadRequest::isFinishedChanged, download, [&download]() -> void {
-      if(download->isFinished()) {
-        download->deleteLater();
-      }
-    });
     download->accept();
   }
 }
