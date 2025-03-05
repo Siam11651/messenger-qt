@@ -1,16 +1,28 @@
 #include <QDesktopServices>
+#include <QMessageBox>
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QWebEngineHistory>
 #include <QWebEngineHistoryItem>
 #include <messenger/app-info.hpp>
 #include <messenger/ui/popup_page.hpp>
+#include <messenger/ui/dialog_window.hpp>
 #include <messenger/ui/webengine_page.hpp>
 
-bool messenger::webengine_page::openurl_helper(const QUrl &url) const {
-  QDesktopServices::openUrl(url);
+void messenger::webengine_page::handle_permission_request(
+    QWebEnginePermission permission) {
+  if (url().host().endsWith((messenger::domain.c_str()))) {
+    if (permission.permissionType() ==
+        QWebEnginePermission::PermissionType::Notifications) {      
+      const QMessageBox::StandardButton reply = QMessageBox::question(nullptr, "Confirm Permissions", "Allow notificatons?", QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No);
 
-  return false;
+      if(reply == QMessageBox::StandardButton::Yes) {
+        permission.grant();
+      } else if(reply == QMessageBox::StandardButton::Yes) {
+        permission.deny();
+      }
+    }
+  }
 }
 
 bool messenger::webengine_page::acceptNavigationRequest(
@@ -25,17 +37,25 @@ bool messenger::webengine_page::acceptNavigationRequest(
     if (url.host().endsWith("facebook.com")) {
       return true;
     } else {
-      return openurl_helper(url);
+      QDesktopServices::openUrl(url);
+
+      return false;
     }
   }
 }
 
 QWebEnginePage *
 messenger::webengine_page::createWindow(QWebEnginePage::WebWindowType type) {
-  if(type == QWebEnginePage::WebWindowType::WebBrowserTab) {
+  if (type == QWebEnginePage::WebWindowType::WebBrowserTab) {
     return new messenger::popup_page(profile());
   } else {
-    return nullptr;
+    QWebEnginePage *const new_page = new QWebEnginePage(profile());
+    messenger::dialog_window *const new_window =
+        new messenger::dialog_window(new_page, (QWidget *)parent());
+
+    new_window->show();
+
+    return new_page;
   }
 }
 
@@ -81,7 +101,10 @@ messenger::webengine_page::chooseFiles(QWebEnginePage::FileSelectionMode mode,
 }
 
 messenger::webengine_page::webengine_page(
-    messenger::webengine_profile *_profile)
-    : QWebEnginePage(_profile) {}
+    messenger::webengine_profile *_profile, QWidget *const _parent)
+    : QWebEnginePage(_profile, _parent) {
+  connect(this, &messenger::webengine_page::permissionRequested, this,
+          &messenger::webengine_page::handle_permission_request);
+}
 
 messenger::webengine_page::~webengine_page() { profile()->deleteLater(); }
