@@ -1,11 +1,11 @@
-#ifndef WEBENGINE_PAGE_H
-#define WEBENGINE_PAGE_H
+#ifndef DIALOG_PAGE_H
+#define DIALOG_PAGE_H
 
 #include <QWebEnginePage>
 #include <messenger/ui/webengine_profile.hpp>
 
 namespace messenger {
-class webengine_page : public QWebEnginePage {
+class dialog_page : public QWebEnginePage {
 private:
   const QMap<QWebEnginePermission::PermissionType, QString>
       m_permission_message{
@@ -23,19 +23,12 @@ private:
            "Allow screen recording and audio capture access?"}};
 
   void handle_permission_request(QWebEnginePermission permission);
-  bool acceptNavigationRequest(const QUrl &url,
-                               QWebEnginePage::NavigationType type,
-                               bool isMainFrame) override;
-  QWebEnginePage *createWindow(QWebEnginePage::WebWindowType type) override;
-  QStringList chooseFiles(QWebEnginePage::FileSelectionMode mode,
-                          const QStringList &oldFiles,
-                          const QStringList &acceptedMimeTypes) override;
 
 public:
-  webengine_page(messenger::webengine_profile *_profile,
-                 QWidget *const _parent = nullptr);
-  ~webengine_page();
+  dialog_page(messenger::webengine_profile *_profile,
+              QWidget *const _parent = nullptr);
+  ~dialog_page();
 };
-} // namespace messenger
+}; // namespace messenger
 
 #endif

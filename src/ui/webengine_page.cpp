@@ -1,24 +1,30 @@
 #include <QDesktopServices>
-#include <QMessageBox>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QStandardPaths>
 #include <QWebEngineHistory>
 #include <QWebEngineHistoryItem>
 #include <messenger/app-info.hpp>
-#include <messenger/ui/popup_page.hpp>
+#include <messenger/ui/dialog_page.hpp>
 #include <messenger/ui/dialog_window.hpp>
+#include <messenger/ui/popup_page.hpp>
 #include <messenger/ui/webengine_page.hpp>
 
 void messenger::webengine_page::handle_permission_request(
     QWebEnginePermission permission) {
   if (url().host().endsWith((messenger::domain.c_str()))) {
-    if (permission.permissionType() ==
-        QWebEnginePermission::PermissionType::Notifications) {      
-      const QMessageBox::StandardButton reply = QMessageBox::question(nullptr, "Confirm Permissions", "Allow notificatons?", QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No);
+    const QWebEnginePermission::PermissionType permission_type =
+        permission.permissionType();
 
-      if(reply == QMessageBox::StandardButton::Yes) {
+    if (m_permission_message.find(permission_type) !=
+        m_permission_message.end()) {
+      const QMessageBox::StandardButton reply = QMessageBox::question(
+          nullptr, "Confirm Permission", m_permission_message[permission_type],
+          QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No);
+
+      if (reply == QMessageBox::StandardButton::Yes) {
         permission.grant();
-      } else if(reply == QMessageBox::StandardButton::Yes) {
+      } else if (reply == QMessageBox::StandardButton::Yes) {
         permission.deny();
       }
     }
@@ -49,7 +55,8 @@ messenger::webengine_page::createWindow(QWebEnginePage::WebWindowType type) {
   if (type == QWebEnginePage::WebWindowType::WebBrowserTab) {
     return new messenger::popup_page(profile());
   } else {
-    QWebEnginePage *const new_page = new QWebEnginePage(profile());
+    messenger::dialog_page *const new_page =
+        new messenger::dialog_page((messenger::webengine_profile *)profile());
     messenger::dialog_window *const new_window =
         new messenger::dialog_window(new_page, (QWidget *)parent());
 

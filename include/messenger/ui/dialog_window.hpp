@@ -1,5 +1,5 @@
-#ifndef dialog_window_H
-#define dialog_window_H
+#ifndef DIALOG_WINDOW_H
+#define DIALOG_WINDOW_H
 
 #include <QMainWindow>
 #include <QWebEnginePage>
