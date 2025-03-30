@@ -9,7 +9,7 @@ configure_file(
   "${PROJECT_SOURCE_DIR}/include/messenger/app-info.hpp.in"
   "${PROJECT_SOURCE_DIR}/include/messenger/app-info.hpp"
 )
-add_executable(${PROJECT_NAME}
+add_executable(${PROJECT_NAME} WIN32
   "src/main.cpp"
   "src/ui/menubar.cpp"
   "src/ui/menu/filemenu.cpp"
