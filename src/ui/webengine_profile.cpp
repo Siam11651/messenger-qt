@@ -20,8 +20,8 @@ void messenger::webengine_profile::handle_download_request(
   }
 }
 
-messenger::webengine_profile::webengine_profile(const QString &_name)
-    : QWebEngineProfile(_name) {
+messenger::webengine_profile::webengine_profile(const QString &_name, QObject *_parent)
+    : QWebEngineProfile(_name, _parent) {
   setPersistentCookiesPolicy(
       QWebEngineProfile::PersistentCookiesPolicy::AllowPersistentCookies);
   setPersistentStoragePath(

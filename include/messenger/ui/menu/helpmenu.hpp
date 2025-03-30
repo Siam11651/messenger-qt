@@ -6,16 +6,12 @@
 
 namespace messenger {
 class helpmenu : public QMenu {
-private:
-  QAction *m_homepage_action;
-  QAction *m_about_action;
-
 private slots:
   void homepage_trigger();
   void about_trigger();
 
 public:
-  helpmenu();
+  helpmenu(QWidget *_parent = nullptr);
   ~helpmenu();
 };
 } // namespace messenger

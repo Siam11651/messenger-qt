@@ -114,4 +114,4 @@ messenger::webengine_page::webengine_page(
           &messenger::webengine_page::handle_permission_request);
 }
 
-messenger::webengine_page::~webengine_page() { profile()->deleteLater(); }
+messenger::webengine_page::~webengine_page() {}

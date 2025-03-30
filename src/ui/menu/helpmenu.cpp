@@ -1,28 +1,25 @@
-#include <messenger/ui/menu/helpmenu.hpp>
 #include <QDesktopServices>
 #include <QUrl>
+#include <messenger/ui/menu/helpmenu.hpp>
 
 void messenger::helpmenu::homepage_trigger() {
   QDesktopServices::openUrl(QUrl("https://github.com/Siam11651/messenger-qt"));
 }
 
-void messenger::helpmenu::about_trigger() {
-  
-}
+void messenger::helpmenu::about_trigger() {}
 
-messenger::helpmenu::helpmenu() : QMenu() {
+messenger::helpmenu::helpmenu(QWidget *_parent) : QMenu(_parent) {
   setTitle("Help");
 
-  m_homepage_action = new QAction("Homepage");
-  m_about_action = new QAction("About");
+  QAction *m_homepage_action = new QAction("Homepage", this);
+  QAction *m_about_action = new QAction("About", this);
 
   addAction(m_homepage_action);
   addAction(m_about_action);
-  connect(m_homepage_action, &QAction::triggered, this, &messenger::helpmenu::homepage_trigger);
-  connect(m_about_action, &QAction::triggered, this, &messenger::helpmenu::about_trigger);
+  connect(m_homepage_action, &QAction::triggered, this,
+          &messenger::helpmenu::homepage_trigger);
+  connect(m_about_action, &QAction::triggered, this,
+          &messenger::helpmenu::about_trigger);
 }
 
-messenger::helpmenu::~helpmenu() {
-  delete m_homepage_action;
-  delete m_about_action;
-}
+messenger::helpmenu::~helpmenu() {}

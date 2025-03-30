@@ -9,7 +9,7 @@ private slots:
   void handle_download_request(QWebEngineDownloadRequest *download);
 
 public:
-  webengine_profile(const QString &_name);
+  webengine_profile(const QString &_name, QObject *_parent = nullptr);
   ~webengine_profile();
 };
 } // namespace messenger
